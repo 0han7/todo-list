@@ -31,7 +31,7 @@ public class MemberCotroller {
 
     @PutMapping("/{memberId}")
     public ResponseEntity<MemberResponseDto> updateMember(@PathVariable Long memberId,
-                                                          @RequestBody UpdateMemberRequestDto requsetDto,
+                                                          @RequestBody UpdateRequestDto requsetDto,
                                                           HttpServletRequest request) {
         Member member = (Member) request.getAttribute("member");
         MemberResponseDto responseDto = memberService.updateMember(memberId, requsetDto, member);
@@ -39,11 +39,10 @@ public class MemberCotroller {
     }
 
     @DeleteMapping("/{memberId}")
-    public ResponseEntity<String> deleteMember(@PathVariable String memberId,
-                                               @RequestBody DeleteRequestDto requestDto,
+    public ResponseEntity<String> deleteMember(@PathVariable Long memberId,
                                                HttpServletRequest request) {
         Member member = (Member) request.getAttribute("member");
-        memberService.deleteMember(memberId, requestDto, member);
+        memberService.deleteMember(memberId, member);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("회원 탈퇴 완료");
 
     }

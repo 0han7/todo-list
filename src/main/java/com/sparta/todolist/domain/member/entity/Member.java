@@ -1,6 +1,5 @@
 package com.sparta.todolist.domain.member.entity;
 
-import com.sparta.todolist.domain.member.dto.UpdateMemberRequestDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -24,6 +23,7 @@ public class Member {
     @Column(nullable = false)
     private String passowrd;
 
+    
     @Email
     @Column(nullable = false)
     private String email;

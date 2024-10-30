@@ -5,10 +5,8 @@ import com.sparta.todolist.domain.config.PassowordEncoder;
 import com.sparta.todolist.domain.member.dto.*;
 import com.sparta.todolist.domain.member.entity.Member;
 import com.sparta.todolist.domain.member.repository.MemberRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +19,6 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PassowordEncoder passowordEncoder;
     private final JwtUtil jwtUtil;
-    private final EmailValidator emailValidator;
-
 
 
     public void signup(SignupRequsetDto requsetDto) {
@@ -55,7 +51,7 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberResponseDto updateMember(Long memberId, UpdateMemberRequestDto requsetDto, Member member) {
+    public MemberResponseDto updateMember(Long memberId, UpdateRequestDto requsetDto, Member member) {
         Member updatedMember = memberRepository.findById(memberId).orElseThrow(() ->
                 new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 
@@ -79,8 +75,8 @@ public class MemberService {
         return new MemberResponseDto(updatedMember);
     }
 
-
-    public void deleteMember(String memberId, DeleteRequestDto requestDto, Member member) {
+    @Transactional
+    public void deleteMember(Long memberId, Member member) {
         Member deleteMember = memberRepository.findById(memberId).orElseThrow(() ->
                 new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 
