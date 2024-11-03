@@ -5,6 +5,7 @@ import com.sparta.todolist.domain.comment.service.CommentService;
 import com.sparta.todolist.domain.config.JwtUtil;
 import com.sparta.todolist.domain.member.entity.Member;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity<CommentResponseDto> createComment(@PathVariable Long todoId,
-                                                            @RequestBody CommentRequestDto commentRequestDto,
+                                                            @RequestBody @Valid CommentRequestDto commentRequestDto,
                                                             HttpServletRequest request) {
 
         Member member = (Member) request.getAttribute("member");
@@ -40,7 +41,7 @@ public class CommentController {
     @PutMapping("/{commentId}")
     public ResponseEntity<UpdateResponseDto> updateComment(@PathVariable Long todoId,
                                                            @PathVariable Long commentId,
-                                                           @RequestBody UpdateRequestDto requestDto,
+                                                           @RequestBody @Valid UpdateRequestDto requestDto,
                                                            HttpServletRequest request) {
         Member member = (Member) request.getAttribute("member");
         UpdateResponseDto updateResponseDto = commentService.updateComment(todoId, commentId, requestDto, member);

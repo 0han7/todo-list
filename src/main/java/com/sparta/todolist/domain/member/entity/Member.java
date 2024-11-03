@@ -16,16 +16,15 @@ public class Member extends TimeStamped {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+
     @Column(nullable = false)
     private String name;
 
-    @NotNull
+
     @Column(nullable = false)
     private String password;
 
 
-    @Email
     @Column(nullable = false)
     private String email;
 

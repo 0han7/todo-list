@@ -6,6 +6,7 @@ import com.sparta.todolist.domain.todo.dto.TodoResponseDto;
 import com.sparta.todolist.domain.todo.dto.UpdateRequestDto;
 import com.sparta.todolist.domain.todo.service.TodoService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +26,7 @@ public class TodoController {
     private final TodoService todoService;
 
     @PostMapping
-    public ResponseEntity<TodoResponseDto> createTodo(@RequestBody CreateRequestDto requestDto, HttpServletRequest request) {
+    public ResponseEntity<TodoResponseDto> createTodo(@RequestBody @Valid CreateRequestDto requestDto, HttpServletRequest request) {
 
         Member member = (Member) request.getAttribute("member");
         TodoResponseDto todoResponseDto = todoService.createTodo(requestDto, member);
@@ -40,7 +41,7 @@ public class TodoController {
 
     @PutMapping("/{todoId}")
     public ResponseEntity<TodoResponseDto> updateTodo(@PathVariable Long todoId,
-                                                      @RequestBody UpdateRequestDto requestDto,
+                                                      @RequestBody @Valid UpdateRequestDto requestDto,
                                                       HttpServletRequest request) {
         Member member = (Member) request.getAttribute("member");
         TodoResponseDto responseDto = todoService.updateTodo(todoId, requestDto, member);
