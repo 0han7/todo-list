@@ -66,6 +66,7 @@
 
 
 ## ERM
-![스크린샷 2024-10-17 111056](https://github.com/user-attachments/assets/09913660-d354-4b02-ba3c-8fd18470ee33)
+![image](https://github.com/user-attachments/assets/c5bfe54f-d13e-48aa-b262-aba469a56f4b)
+
 
 
