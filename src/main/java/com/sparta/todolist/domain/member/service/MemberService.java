@@ -37,12 +37,12 @@ public class MemberService {
 
     public void login(LoginRequestDto requestDto, HttpServletResponse response) {
         String email = requestDto.getEmail();
-        String password = requestDto.getPassowrd();
+        String password = requestDto.getPassword();
 
         Member member = memberRepository.findByEmail(email).orElseThrow(() ->
                 new IllegalArgumentException("해당 유저는 존재하지 않습니다."));
 
-        if (!passowordEncoder.matches(password, member.getPassowrd())) {
+        if (!passowordEncoder.matches(password, member.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
@@ -55,16 +55,16 @@ public class MemberService {
         Member updatedMember = memberRepository.findById(memberId).orElseThrow(() ->
                 new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 
-        if (!memberId.equals(member.getId())) {
+        if (!memberId.equals(updatedMember.getId())) {
             throw new SecurityException("수정할 권한이 없습니다.");
 
         }
 
-        if (!passowordEncoder.matches(requsetDto.getPassword(), member.getPassowrd())) {
+        if (!passowordEncoder.matches(requsetDto.getPassword(), updatedMember.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        if (passowordEncoder.matches((requsetDto.getUpdatedPassword()), member.getPassowrd())) {
+        if (passowordEncoder.matches((requsetDto.getUpdatedPassword()), updatedMember.getPassword())) {
             throw new IllegalArgumentException("현재 비밀번호와 동일한 번호로 수정할 수 없스니다.");
         }
 
@@ -80,7 +80,7 @@ public class MemberService {
         Member deleteMember = memberRepository.findById(memberId).orElseThrow(() ->
                 new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 
-        if (!memberId.equals(member.getId())) {
+        if (!memberId.equals(deleteMember.getId())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         memberRepository.delete(deleteMember);
