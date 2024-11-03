@@ -7,28 +7,34 @@ import com.sparta.todolist.domain.todo.dto.UpdateRequestDto;
 import com.sparta.todolist.domain.todo.service.TodoService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/todo")
 @RequiredArgsConstructor
 public class TodoController {
 
-    private TodoService todoService;
+    private final TodoService todoService;
 
     @PostMapping
-    public ResponseEntity<TodoResponseDto> createTodo(@RequestBody CreateRequestDto todoRequestDto, HttpServletRequest request) {
+    public ResponseEntity<TodoResponseDto> createTodo(@RequestBody CreateRequestDto requestDto, HttpServletRequest request) {
 
         Member member = (Member) request.getAttribute("member");
-        TodoResponseDto todoResponseDto = todoService.createTodo(todoRequestDto, member);
+        TodoResponseDto todoResponseDto = todoService.createTodo(requestDto, member);
         return ResponseEntity.status(HttpStatus.CREATED).body(todoResponseDto);
     }
 
-    @GetMapping
-    public ResponseEntity<TodoResponseDto> getTodo() {
-        TodoResponseDto todoResponseDto = todoService.getTodo();
+    @GetMapping("/{memberId}")
+    public ResponseEntity<List<TodoResponseDto>> getTodo(@PathVariable Long memberId) {
+        List<TodoResponseDto> todoResponseDto = todoService.getTodo(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(todoResponseDto);
     }
 
