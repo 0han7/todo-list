@@ -14,14 +14,14 @@
 ## 📌주요 기능 
 
 ### 1. CRUD 개선
-* ResponseEntity 클래스 사용
-* Validation 추가
-* TimeStamped 클래스를 사용하여 createdAt, updatedAt 상속
+* ResponseEntity 클래스를 사용했습니다.
+* Validation 추가했습니다.
+* TimeStamped 추상 클래스를 사용하여 각 엔티티 상속했습니다.
 
 
 ### 2. 토큰 기반의 인증
-* JWT토큰을 이용한 로그인 구현
-* 인증 필터 (authFilter)
+* JWT토큰을 이용한 로그인 구현했습니다.
+* 인증 필터 (authFilter)를 사용했습니다.
 
 
 <br>
@@ -58,11 +58,6 @@
 | POST   | /api/members/login  | 로그인       | ```json { "login": "jdjHong", "password": "1234567w" } ```                                                            | ```json { "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...", "userId": 1, "username": "홍길동" } ```                                                                   | 200 OK       |
 | POST   | /api/members/signup | 회원가입     | ```json { "login": "jdjHong", "password": "1234567w", "username": "홍길동", "email": "jdjHong@email.com" } ```         | ```json { "id": 1, "login": "jdjHong", "username": "홍길동", "email": "jdjHong@email.com", "createdAt": "2024-10-16T16:47:52.0360414" } ```                              | 201 Created |
 
----
-
-위와 같은 형식으로 로그인 및 회원가입 API 명세를 작성하여 참고하시면 됩니다.
-
-추가적인 도움이 필요하시면 [GPT Online](https://gptonline.ai/ko/)을 방문해 주세요.
 
 
 ## ERM
